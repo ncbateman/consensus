@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 import fastapi
+
 import fiber.chain.interface
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
 from consensus import utils
+
 from consensus.validator.routers.health import factory as health_factory
 
 
