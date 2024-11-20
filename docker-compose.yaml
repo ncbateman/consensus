@@ -1,0 +1,13 @@
+services:
+  miner:
+    build:
+      dockerfile: docker/miner/Dockerfile
+      context: .
+    ports:
+      - "8001:8001"
+  validator:
+    build:
+      dockerfile: docker/validator/Dockerfile
+      context: .
+    ports:
+      - "8000:8000"
