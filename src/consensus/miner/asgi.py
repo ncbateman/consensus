@@ -1,10 +1,7 @@
 from contextlib import asynccontextmanager
 
-import asyncpg
 import fastapi
 import fiber.chain.interface
-import redis
-import redis.asyncio
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 

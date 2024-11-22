@@ -11,3 +11,11 @@ services:
       context: .
     ports:
       - "8000:8000"
+  metagraph:
+    build:
+      dockerfile: docker/metagraph/Dockerfile
+      context: .
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+    - "6379:6379"

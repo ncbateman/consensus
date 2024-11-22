@@ -14,7 +14,9 @@ from loguru import logger
 AUTHORIZATION = fastapi.security.APIKeyHeader(name="Authorization", auto_error=False)
 
 class Config(pydantic_settings.BaseSettings):
-    model_config = {"env_file": ".miner.env"}
+    model_config = {"env_file": ".env"}
+
+    redis_url: pydantic.RedisDsn
 
     debug: bool = pydantic.Field(default=False)
 
@@ -36,9 +38,6 @@ async def get_config(request: fastapi.Request):
     Extract a reference to the application Config.
     """
     yield request.app.state.config
-
-
-
 
 def hmac_generate(secret_key: str, payload: str) -> str:
     """
@@ -63,7 +62,6 @@ def now(*, precise: bool = False):
     if not precise:
         ts = ts.replace(microsecond=0)
     return ts
-
 
 def setup_loguru(level="INFO"):
     class PropagateHandler(logging.Handler):
