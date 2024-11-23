@@ -17,6 +17,7 @@ dependencies = [
     "uvicorn==0.30.5",
     "nltk==3.9.1",
     "bittensor==8.3.1",
+    "halo==0.0.31",
     "fiber @ git+https://github.com/rayonlabs/fiber.git@optional-packages",
 ]
 

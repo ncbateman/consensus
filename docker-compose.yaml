@@ -4,17 +4,23 @@ services:
       dockerfile: docker/miner/Dockerfile
       context: .
     ports:
-      - "8001:8001"
+      - "8000:8000"
+    depends_on:
+      - metagraph
   validator:
     build:
       dockerfile: docker/validator/Dockerfile
       context: .
     ports:
-      - "8000:8000"
+      - "8001:8001"
+    depends_on:
+      - metagraph
   metagraph:
     build:
       dockerfile: docker/metagraph/Dockerfile
       context: .
+    depends_on:
+      - redis
   redis:
     image: redis/redis-stack:latest
     ports:

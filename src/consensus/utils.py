@@ -16,8 +16,6 @@ AUTHORIZATION = fastapi.security.APIKeyHeader(name="Authorization", auto_error=F
 class Config(pydantic_settings.BaseSettings):
     model_config = {"env_file": ".env"}
 
-    redis_url: pydantic.RedisDsn
-
     debug: bool = pydantic.Field(default=False)
 
     # bittensor stuff
@@ -73,3 +71,15 @@ def setup_loguru(level="INFO"):
     logger.add(sink=sys.stdout, level=level)
     logger.add(PropagateHandler(), level=level, format="{message}")
 
+
+async def metagraph_synced(redis_client):
+    try:
+        keys = await redis_client.keys("node:*")
+        if keys:
+            return True
+        else:
+            return False
+
+    except Exception as e:
+        logger.error(f"Error checking metagraph sync status: {e}")
+        return False
