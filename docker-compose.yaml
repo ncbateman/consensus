@@ -1,4 +1,16 @@
 services:
+  base:
+    build:
+      dockerfile: docker/base/Dockerfile
+      context: .
+    command: ["true"]
+  metagraph:
+    build:
+      dockerfile: docker/metagraph/Dockerfile
+      context: .
+    depends_on:
+      - redis
+      - base
   miner:
     build:
       dockerfile: docker/miner/Dockerfile
@@ -7,6 +19,7 @@ services:
       - "8000:8000"
     depends_on:
       - metagraph
+      - base
   validator:
     build:
       dockerfile: docker/validator/Dockerfile
@@ -15,12 +28,7 @@ services:
       - "8001:8001"
     depends_on:
       - metagraph
-  metagraph:
-    build:
-      dockerfile: docker/metagraph/Dockerfile
-      context: .
-    depends_on:
-      - redis
+      - base
   redis:
     image: redis/redis-stack:latest
     ports:

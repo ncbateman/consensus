@@ -16,6 +16,9 @@ AUTHORIZATION = fastapi.security.APIKeyHeader(name="Authorization", auto_error=F
 class Config(pydantic_settings.BaseSettings):
     model_config = {"env_file": ".env"}
 
+    # redis
+    redis_url: pydantic.RedisDsn
+    
     debug: bool = pydantic.Field(default=False)
 
     # bittensor stuff

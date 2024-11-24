@@ -2,7 +2,11 @@ from loguru import logger
 import bittensor
 import redis
 
-redis_client = redis.Redis.from_url('redis://redis:6379')
+from consensus import utils
+
+config = utils.Config()
+
+redis_client = redis.Redis.from_url(str(config.redis_url))
 
 def metagraph_refresh():
     pipe = redis_client.pipeline()

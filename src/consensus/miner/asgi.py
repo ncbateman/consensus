@@ -18,7 +18,7 @@ async def lifespan(app: fastapi.FastAPI):
         subtensor_address=app.state.config.subtensor_address,
     )
 
-    app.state.redis_client = redis.asyncio.Redis.from_url('redis://redis:6379')
+    app.state.redis_client = redis.asyncio.Redis.from_url(str(app.state.config.redis_url))
 
     while not await utils.metagraph_synced(app.state.redis_client):
         logger.info("Waiting for metagraph to sync...")
